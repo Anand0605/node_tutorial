@@ -73,7 +73,32 @@ app.get('/', function (req, res) {
   res.send('Hello World')
 })
 
-app.listen(3000)
+app.get('/anand',function(req, res){
+  res.send("welcome anand ")
+})
+
+app.get('/noida', (req, res)=>{
+  res.send("welcome to noida")
+})
+
+app.get('/students',(req, res)=>{
+  var student_list = {
+    name: "Anand Kumar Gautam",
+  age: 22,
+  gender: "Male",
+  course: "B.Tech Electrical Engineering",
+  year: 2023,
+  university: "Varanasi University",
+  hobbies: ["Coding", "Solving politics-related issues", "Reading"],
+  }
+  res.send(student_list)
+})
+  
+
+
+app.listen(3000, ()=>{
+  console.log("server is leaving 3000")
+})
 
 
 
