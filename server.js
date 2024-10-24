@@ -56,15 +56,24 @@
 
 // console.log(jsonObject);
 
-const jsonObject = {
-    name: "Anand Kumar Gautam",
-    age: 23,
-    city: "Varanasi",
-    skills: ["React.js", "Next.js", "Tailwind CSS"]
-  };
-  const jsonString = JSON.stringify(jsonObject);
+// const jsonObject = {
+//     name: "Anand Kumar Gautam",
+//     age: 23,
+//     city: "Varanasi",
+//     skills: ["React.js", "Next.js", "Tailwind CSS"]
+//   };
+//   const jsonString = JSON.stringify(jsonObject);
 
-console.log(jsonString);
+// console.log(jsonString);
+
+const express = require('express')
+const app = express()
+
+app.get('/', function (req, res) {
+  res.send('Hello World')
+})
+
+app.listen(3000)
 
 
 
