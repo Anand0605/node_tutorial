@@ -93,6 +93,9 @@ app.get('/students',(req, res)=>{
   }
   res.send(student_list)
 })
+app.post('/chef',(req,res)=>{
+  res.send('/chef')
+})
   
 
 
