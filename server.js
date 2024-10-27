@@ -68,34 +68,35 @@
 
 const express = require('express')
 const app = express()
+const db = require('./db')
 
 app.get('/', function (req, res) {
   res.send('Hello World')
 })
 
-app.get('/anand',function(req, res){
-  res.send("welcome anand ")
-})
+// app.get('/anand',function(req, res){
+//   res.send("welcome anand ")
+// })
 
-app.get('/noida', (req, res)=>{
-  res.send("welcome to noida")
-})
+// app.get('/noida', (req, res)=>{
+//   res.send("welcome to noida")
+// })
 
-app.get('/students',(req, res)=>{
-  var student_list = {
-    name: "Anand Kumar Gautam",
-  age: 22,
-  gender: "Male",
-  course: "B.Tech Electrical Engineering",
-  year: 2023,
-  university: "Varanasi University",
-  hobbies: ["Coding", "Solving politics-related issues", "Reading"],
-  }
-  res.send(student_list)
-})
-app.post('/chef',(req,res)=>{
-  res.send('/chef')
-})
+// app.get('/students',(req, res)=>{
+//   var student_list = {
+//     name: "Anand Kumar Gautam",
+//   age: 22,
+//   gender: "Male",
+//   course: "B.Tech Electrical Engineering",
+//   year: 2023,
+//   university: "Varanasi University",
+//   hobbies: ["Coding", "Solving politics-related issues", "Reading"],
+//   }
+//   res.send(student_list)
+// })
+// app.post('/chef',(req,res)=>{
+//   res.send('/chef')
+// })
   
 
 
