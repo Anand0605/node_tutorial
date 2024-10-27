@@ -69,6 +69,7 @@
 const express = require('express')
 const app = express()
 const db = require('./db')
+const Person = required('./models/Person')
 
 app.get('/', function (req, res) {
   res.send('Hello World')
