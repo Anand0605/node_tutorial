@@ -158,9 +158,9 @@ app.get('/person/:workType',async(req,res)=>{
 })
 
 
-// app.get('/anand',function(req, res){
-//   res.send("welcome anand ")
-// })
+app.get('/anand',function(req, res){
+  res.send("welcome anand ")
+})
 
 // app.get('/noida', (req, res)=>{
 //   res.send("welcome to noida")
