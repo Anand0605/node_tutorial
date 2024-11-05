@@ -187,6 +187,9 @@ app.get('/noida', (req, res)=>{
 const personRoutes = require("./routes/personRoutes");
 app.use('/person',personRoutes)
 
+const menuItemRoutes = require("./routes/menuItemRoutes")
+app.use("/menu",menuItemRoutes)
+
 app.listen(3000, ()=>{
   console.log("server is leaving 3000")
 })
