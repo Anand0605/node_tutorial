@@ -73,7 +73,7 @@ const db = require('./db')
 const bodyParser= require('body-parser');
 app.use(bodyParser.json())
 
-const Person = require('./models/person');
+// const Person = require('./models/person');
 const MenuItem = require('./models/MenuItem');
 
 // Route to serve home page
@@ -82,32 +82,32 @@ app.get('/', function (req, res) {
 });
 
 // POST route to add a new person
-app.post('/person', async (req, res) => {
-  try {
-    const data = req.body; // Assuming the request body contains person data
-    const newPerson = new Person(data);
+// app.post('/person', async (req, res) => {
+//   try {
+//     const data = req.body; // Assuming the request body contains person data
+//     const newPerson = new Person(data);
 
-    // Save the new person to the database
-    const response = await newPerson.save();
-    console.log('Person data saved');
-    res.status(200).json(response);
-  } catch (err) {
-    console.log(err);
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
-});
+//     // Save the new person to the database
+//     const response = await newPerson.save();
+//     console.log('Person data saved');
+//     res.status(200).json(response);
+//   } catch (err) {
+//     console.log(err);
+//     res.status(500).json({ error: 'Internal Server Error' });
+//   }
+// });
 
 // GET route to retrieve all persons
-app.get('/person', async (req, res) => {
-  try {
-    const data = await Person.find();
-    console.log('Person data fetched');
-    res.status(200).json(data);
-  } catch (err) {
-    console.log(err);
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
-});
+// app.get('/person', async (req, res) => {
+//   try {
+//     const data = await Person.find();
+//     console.log('Person data fetched');
+//     res.status(200).json(data);
+//   } catch (err) {
+//     console.log(err);
+//     res.status(500).json({ error: 'Internal Server Error' });
+//   }
+// });
 
 // POST route to add a new menu item
 app.post('/menu', async (req, res) => {
@@ -138,24 +138,24 @@ app.get('/menu', async (req, res) => {
 });
 
 
-app.get('/person/:workType',async(req,res)=>{
+// app.get('/person/:workType',async(req,res)=>{
 
-  try{
-    const workType = req.params.workType; // extract the work type from the url parameter
-    if(workType=='chef'|| workType=='manager'|| workType=='waiter'){
+//   try{
+//     const workType = req.params.workType; // extract the work type from the url parameter
+//     if(workType=='chef'|| workType=='manager'|| workType=='waiter'){
       
-      const response = await Person.find({work:workType});
-      console.log('response fetched');
-      res.status(200).json(response)
+//       const response = await Person.find({work:workType});
+//       console.log('response fetched');
+//       res.status(200).json(response)
 
-    }else{
-      res.status(404).json({error:'invalid work type'})
-    }
-  }catch(err){
-    console.log(err);
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
-})
+//     }else{
+//       res.status(404).json({error:'invalid work type'})
+//     }
+//   }catch(err){
+//     console.log(err);
+//     res.status(500).json({ error: 'Internal Server Error' });
+//   }
+// })
 
 
 // app.get('/anand',function(req, res){
@@ -183,6 +183,9 @@ app.get('/noida', (req, res)=>{
 // })
   
 
+
+const personRoutes = require("./routes/personRoutes");
+app.use('/person',personRoutes)
 
 app.listen(3000, ()=>{
   console.log("server is leaving 3000")
