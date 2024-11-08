@@ -3,6 +3,8 @@ const router = express.Router();
 const Person = require('./../models/person');
 
 
+// curd operation
+
 router.post('/', async (req, res) => {
     try {
       const data = req.body; // Assuming the request body contains person data
