@@ -66,12 +66,25 @@
 
 // console.log(jsonString);
 
+
+
+
+
+
+
+
+
 const express = require('express')
 const app = express()
 const db = require('./db')
+require('dotenv').config();
 
 const bodyParser= require('body-parser');
 app.use(bodyParser.json())
+
+
+const PORT = process.env.PORT || 4000
+
 
 // const Person = require('./models/person');
 const MenuItem = require('./models/MenuItem');
@@ -188,6 +201,7 @@ const personRoutes = require("./routes/personRoutes");
 app.use('/person',personRoutes)
 
 const menuItemRoutes = require("./routes/menuItemRoutes")
+const { config } = require('dotenv')
 app.use("/menu",menuItemRoutes)
 
 app.listen(3000, ()=>{
