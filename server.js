@@ -85,6 +85,16 @@ app.use(bodyParser.json())
 
 const PORT = process.env.PORT || 4000
 
+// middleware function
+const logRequest = (req, res, next) => {
+  console.log(`[${new Date().toLocaleString()}] Request Made to: ${req.originalUrl}`);
+  next(); // Move on to the next phase
+};
+
+app.get('/', logRequest, function(req, res) {
+  res.send('Welcome to our Hotel!');
+});
+
 
 // const Person = require('./models/person');
 const MenuItem = require('./models/MenuItem');
