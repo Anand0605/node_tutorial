@@ -78,8 +78,11 @@ const express = require('express')
 const app = express()
 const db = require('./db')
 require('dotenv').config();
+const passport = require('passport')
+const LocalStrategy = require('passport-local').Strategy;
+const person = require('./models/person')
 
-const bodyParser= require('body-parser');
+const bodyParser = require('body-parser');
 app.use(bodyParser.json())
 
 
@@ -91,12 +94,36 @@ const logRequest = (req, res, next) => {
   next(); // Move on to the next phase
 };
 
-app.get('/', logRequest, function(req, res) {
+app.use(logRequest)
+app.get('/', passport.authenticate('local', {session:false}), function (req, res) {
   res.send('Welcome to our Hotel!');
 });
 
+// passport.js via authentication username and password
+passport.use(new LocalStrategy(async (USERNAME, password, done) => {
+  // Authentication logic
+  try {
+    console.log('Received credentials:', USERNAME, password);
+    const user = await Person.findOne({ username: USERNAME });
+    if (!user)
+      return done(null, false, { message: 'Incorrect username' })
 
-// const Person = require('./models/person');
+    const isPasswordMatch = user.password === password ? true : false;
+    if (isPasswordMatch) {
+      return done(null, user);
+    } else {
+      return done(null, false, { message: 'Incorrect password' })
+    }
+
+  } catch (err) {
+    return done(err);
+
+  }
+
+}))
+
+app.use(passport.initialize());
+const Person = require('./models/person');
 const MenuItem = require('./models/MenuItem');
 
 // Route to serve home page
@@ -121,16 +148,16 @@ app.get('/', function (req, res) {
 // });
 
 // GET route to retrieve all persons
-// app.get('/person', async (req, res) => {
-//   try {
-//     const data = await Person.find();
-//     console.log('Person data fetched');
-//     res.status(200).json(data);
-//   } catch (err) {
-//     console.log(err);
-//     res.status(500).json({ error: 'Internal Server Error' });
-//   }
-// });
+app.get('/person', async (req, res) => {
+  try {
+    const data = await Person.find();
+    console.log('Person data fetched');
+    res.status(200).json(data);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
 
 // POST route to add a new menu item
 app.post('/menu', async (req, res) => {
@@ -166,7 +193,7 @@ app.get('/menu', async (req, res) => {
 //   try{
 //     const workType = req.params.workType; // extract the work type from the url parameter
 //     if(workType=='chef'|| workType=='manager'|| workType=='waiter'){
-      
+
 //       const response = await Person.find({work:workType});
 //       console.log('response fetched');
 //       res.status(200).json(response)
@@ -185,7 +212,7 @@ app.get('/menu', async (req, res) => {
 //   res.send("welcome anand ")
 // })
 
-app.get('/noida', (req, res)=>{
+app.get('/noida', (req, res) => {
   res.send("welcome to noida")
 })
 
@@ -204,17 +231,17 @@ app.get('/noida', (req, res)=>{
 // app.post('/chef',(req,res)=>{
 //   res.send('/chef')
 // })
-  
+
 
 
 const personRoutes = require("./routes/personRoutes");
-app.use('/person',personRoutes)
+app.use('/person', personRoutes)
 
 const menuItemRoutes = require("./routes/menuItemRoutes")
 const { config } = require('dotenv')
-app.use("/menu",menuItemRoutes)
+app.use("/menu", menuItemRoutes)
 
-app.listen(3000, ()=>{
+app.listen(3000, () => {
   console.log("server is leaving 3000")
 })
 
